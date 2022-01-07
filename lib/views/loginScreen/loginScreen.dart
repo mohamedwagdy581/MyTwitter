@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:twitter/components/components.dart';
 import 'package:twitter/components/constants.dart';
+import 'package:twitter/shared/local/sharedPreferences.dart';
 import 'package:twitter/views/registerScreen/registerScreen.dart';
 
 import '../homePage/homePage.dart';
@@ -184,12 +185,21 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     if (responce.statusCode == 200) {
       var body = jsonDecode(responce.body.toString());
+
+      // Start using sharedPreferences
+      var token = body['jwt'];
+      SharedPrefs.setToken(token);
+      /*var token = body['jwt'];
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('token', token);*/
+
+      //
       print('Account Login' + body.toString());
       navigateAndFinish(context, const HomePage());
     } else {
       var body = jsonDecode(responce.body.toString());
       print('Can not login to your Account');
-      print(body['messages']['message']);
+      print(body['message']);
     }
   }
 }

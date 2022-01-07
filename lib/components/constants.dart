@@ -15,3 +15,4 @@ const mainBlackColor = Color(0xff404040);
 const MAIN_URL = 'http://192.168.0.110:1337';
 const REGISTER_URL = MAIN_URL + '/api/auth/local/register';
 const LOGIN_URL = MAIN_URL + '/api/auth/local/';
+const TWEETS_URL = MAIN_URL + '/api/tweets';

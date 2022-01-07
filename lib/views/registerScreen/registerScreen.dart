@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:twitter/components/components.dart';
+import 'package:twitter/shared/local/sharedPreferences.dart';
 import 'package:twitter/views/homePage/homePage.dart';
 import 'package:twitter/views/loginScreen/loginScreen.dart';
 
@@ -224,6 +225,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (responce.statusCode == 200) {
       var body = jsonDecode(responce.body.toString());
       print('Account Created' + body);
+
+      // Save token in Shared Preferences
+      SharedPrefs.setToken(body['jwt']);
+
       navigateAndFinish(context, const HomePage());
     } else {
       var body = jsonDecode(responce.body.toString());
